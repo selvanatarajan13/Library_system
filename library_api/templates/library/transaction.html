@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+
+<!-- Django template inheritance tag -->
+
+{% extends "library/index.html" %}
+{% load static %}
+
+{% block main_content %}
+
+<!-- Search and functionalities - start -->
+
+<h3 class="title">Book Issued Transaction</h3>
+<div class="services service" >
+    <form method="post">
+        {% csrf_token %}
+        <input type="text" placeholder="Search the member name here.." class="search-input" name="search">
+        <button type="submit" class="search-btn" >Search</button>
+    </form>
+</div>
+
+<!-- Search and functionalities - start -->
+
+<!-- Book Table start -->
+<div>
+    <h4>Total transaction : {{tot_transaction}}</h4>
+</div>
+<br>
+<table>
+
+    <thead class="table-head">
+        <th>ID</th>
+        <th>Member ID</th>
+        <th>Borrower name</th>
+        <th>Book title</th>
+        <th>Date of issue</th>
+        <th>Return date</th>
+        <th>Fine</th>
+        <th>Outstanding debt</th>
+    </thead>
+
+    <tbody>
+        
+        {% for transaction_data in data %}
+
+        <tr>
+            <td>{{transaction_data.id}}</td>
+            <td>{{transaction_data.memberId}}</td>
+            <td>{{transaction_data.issue_MemberName}}</td>
+            <td>{{transaction_data.issue_BookTitle}}</td>
+            <td>{{transaction_data.issue_date}}</td>
+            <td>{{transaction_data.return_date}}</td>
+            <td>{{transaction_data.fine}}</td>
+            <td>{{transaction_data.total_debt}}</td>
+        </tr>
+        {% endfor %}
+        {% if ack %}
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td style="text-align: center;">{{ack}}</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        {% endif %}
+    </tbody>
+
+</table>
+
+<!-- Book Table -  end -->
+
+
+{% endblock %}

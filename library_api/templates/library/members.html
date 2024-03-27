@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+
+<!-- Django template inheritance tag -->
+
+{% extends "library/index.html" %}
+{% load static %}
+
+{% block main_content %}
+
+<!-- Search and functionalities - start -->
+
+<h3 class="title">Members details</h3>
+
+<div class="services">
+    <button class="search-btn">
+        <a href="Add_new_member">Add New</a>
+    </button>
+    <form method="post">
+        {% csrf_token %}
+        <input type="text" placeholder="Search the member name here.." class="search-input" name="search">
+        <button type="submit" class="search-btn" >Search</button>
+    </form>
+</div>
+
+<!-- Search and functionalities - start -->
+
+<!-- Book Table start -->
+
+<table>
+
+    <thead class="table-m">
+        <th>ID</th>
+        <th>Name</th>
+        <th>Contact</th>
+        <th>Address</th>
+        <td>Action</td>
+    </thead>
+
+    <tbody>
+        
+        {% for member_Data in data %}
+
+        <tr>
+            <td>{{member_Data.memberId}}</td>
+            <td>{{member_Data.member_name}}</td>
+            <td>{{member_Data.contact}}</td>
+            <td>{{member_Data.place}}</td>
+            <td>
+                <button class="search-btn">
+                <a href="{% url 'single_member_view' member_Data.memberId %}" >View</a>
+                </button>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+
+</table>
+
+<!-- Book Table -  end -->
+
+
+{% endblock %}

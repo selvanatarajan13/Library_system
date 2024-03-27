@@ -1,0 +1,75 @@
+<!-- Django template inheritance tag -->
+
+{% extends "library/index.html" %}
+{% load static %}
+
+{% block main_content %}
+
+<!-- Card structure show detail - start -->
+
+<div class="card">
+
+    <div class="container">
+
+        <p>
+            <strong>Book Title :</strong>
+            <span class="highlight">{{data.title}},</span>
+        </p>
+        <p>
+            <strong>Author :</strong> <i>{{data.authors}}</i>
+        </p>
+        <p>
+            <strong>Publisher :</strong> <i>{{data.publisher}}</i>
+        </p>
+        <p>
+            <strong>Publication Date :</strong> {{data.publication_date}},
+        </p>
+        <p>
+            <strong>Number of Pages :</strong> {{data.num_pages}},
+        </p>
+        <p>
+            <strong>Language Code :</strong> {{data.language_code}},
+        </p>
+        <p>
+            <strong>ISBN :</strong> {{data.isbn}},
+        </p>
+        <p>
+            <strong>ISBN13 :</strong> {{data.isbn13}},
+        </p>
+        <p>
+            <strong>Text Reviews Count :</strong> {{data.text_reviews_count}},
+        </p>
+        <p>
+            <strong>Ratings Count :</strong> {{data.ratings_count}}.
+        </p>
+        <br>
+
+        <button class="search-btn">
+            <a href="{% url 'update_book' data.bookID %}">Update</a>
+        </button>
+        <button class="search-btn button" aria-label="button">
+            <a href="{% url 'book_issue' data.bookID %}">issue</a>
+        </button>
+        <button class="search-btn del" onclick="del()">
+           delete
+        </button>
+
+        <a href="/" style="color: blue;">Go Back</a>
+
+    </div>
+
+</div>
+<script>
+    function del() {
+      let s = confirm("Are you sure to delete this book data.");
+      if (s) {
+        window.location.href = "{% url 'delete_book' data.bookID %}"
+      } else {
+        null
+      }
+    }
+</script>
+
+<!-- Card structure show detail - start -->
+
+{% endblock %}

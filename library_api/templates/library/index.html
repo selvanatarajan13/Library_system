@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>Library System</title>
+        <link rel="stylesheet" href="{% static 'index.css' %}">
+    </head>
+    <style>
+        .pagination {
+            display: inline-flex;
+            border: 1px solid #ddd;
+        }
+        .pagination span {
+            display: inline;
+            padding: 8px 16px;
+        }
+
+        .pagination a {
+            color: black;
+            float: left;
+            padding: 8px 16px;
+            text-decoration: none;
+            transition: background-color .1s;
+            border: 1px solid #ddd;
+        }
+
+        .pagination span.active {
+            background-color: dodgerblue;
+            color: white;
+            border: 1px solid dodgerblue;
+        }
+
+        .pagination a:hover:not(.active) {
+            background-color: #ddd;
+        }
+    </style>
+    <body>
+
+        <!-- Navbar start -->
+        <header>
+            <nav>
+                <div>
+                    <h3>Library<span style="color: dodgerblue;">System</span></h3>
+                </div>
+    
+                <ul>
+                    <li>
+                        <a href="/">Books</a>
+                    </li>
+                    <li>
+                        <a href="/library/members">Members</a>
+                    </li>
+                    <li>
+                        <a href="/library/transaction">Transaction</a>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+        <!-- Navbar end -->
+        
+        <!-- Main container start -->
+        <div class="container">
+
+            {% block main_content %}
+
+            <!-- Search and functionalities - start -->
+            <h3 class="title">Library Books</h3>
+
+
+            <div class="services">
+                <button class="search-btn">
+                    <a href="/library/Create_new_book">Add New</a>
+                </button>
+                <form method="post">
+                    {% csrf_token %}
+                    <!-- Here the name attribute is used for text collector. -->
+                    <input type="text" placeholder="Search book title here.."  name="search" required>
+                    <button type="submit" class="search-btn">Search</button>
+                </form>
+            </div>
+
+            <!-- Search and functionalities - end -->
+
+            
+            <!-- Book Table start -->
+            <div>
+                <h4>Total Books are in the table : {{tot_book}}</h4>
+            </div>
+            <br>
+            <table>
+                <thead>
+                    <td>Book Id</td>
+                    <td>Title</td>
+                    <td>Author</td>
+                    <td>publisher</td>
+                    <td>Action</td>
+                </thead>
+                <tbody>
+                    {% for books in data %}
+                    <tr>
+                        <td>{{books.bookID}}</td>
+                        <td>{{books.title}}</td>
+                        <td>{{books.authors}}</td>
+                        <td>{{books.publisher}}</td>
+                        <td>
+                            {% if books.bookID %}
+                                <button class="search-btn button" aria-label="button">
+                                    <a href="{% url 'single_book_view' books.bookID %}">View</a>
+                                </button>
+                                <br><br>
+                                <button class="search-btn button" aria-label="button">
+                                    <a href="{% url 'book_issue' books.bookID %}">issue</a>
+                                </button>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    {% if book_not %}
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td>Boosk is not available..</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+            
+            <!-- Book Table start -->
+            <br>
+            <br>
+            <div class="pagination">
+                {%if data.has_previous %} {# whether the previous page exists #}
+                    <a href="?page={{data.previous_page_number}}" style="color: blue;">Previous</a> {# link to the prev page #}
+                {% endif %}
+                <span class="active">&nbsp;&nbsp;{{data.number}}&nbsp;&nbsp;</span> {# the current page number #}
+               
+                {%if data.has_next %} {# whether the next page exists #}
+                    <a href="?page={{data.next_page_number}}" style="color: blue;">Next</a> {# link to the next page #}
+                {% endif %}
+            </div>
+            {% endblock %}
+            <br>
+            <br>
+            <br>
+        </div>
+        <!-- Main container start end -->
+
+    </body>
+</html>

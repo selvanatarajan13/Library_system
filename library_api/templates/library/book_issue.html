@@ -1,0 +1,59 @@
+{% extends "library/index.html" %}
+{% load static %}
+
+{% block main_content %}
+<div class="card">
+    <div class="container update-container">
+        <h1>Book Issue page</h1>
+        <br>
+        <form method="post">
+            {% csrf_token %}
+
+            <label><b>bookID : </b>{{form.bookID}} </label>
+            <input type="text" value="{{form.bookID}}"  name="issue_BookId"><br><br>
+
+            <label><b>title : </b></label>
+            <input type="text" value="{{form.title}}" name="issue_BookTitle"><br><br>
+
+            <label><b>authors : </b></label>
+            <input type="text" value="{{form.authors}}"  name="issue_BookAuthor"><br><br>
+
+            <label><b>isbn : </b></label>
+            <input type="text" value="{{form.isbn}}"  name="issue_BookIsbn"><br><br>
+
+            <label>Member Id : </label>
+            <input type="number" name="memberId" list="member_list" onchange="setMemberName()" id="memberId" >
+
+            
+            <datalist id="member_list">
+                {% for data in mem_record %}
+                <option value="{{data.memberId}}" data-member-name="{{data.member_name}}"></option>
+                {% endfor %}
+            </datalist>
+            <br>
+            <br>
+            
+            <label>Member Name : </label>
+            <input type="text" name="issue_MemberName" id="memberName" value="">
+            
+            <br>
+            <br>
+            <label>Return Date : </label>
+            <input type="number" name="return_date" placeholder="Return date"><br><br>
+            <br>
+
+            <button type="submit" class="search-btn">Issue</button>
+        </form>
+    </div>
+</div>
+<script>
+    function setMemberName() {
+        var memberIdInput = document.getElementById('memberId');
+        var memberNameInput = document.getElementById('memberName');
+        var memberId = memberIdInput.value;
+        var option = document.querySelector(`option[value="${memberId}"]`);
+        var memberName = option.getAttribute('data-member-name');
+        memberNameInput.value = memberName;
+    }
+</script>
+{% endblock %}

@@ -1,0 +1,72 @@
+<!-- Django template inheritance tag -->
+
+{% extends "library/index.html" %}
+{% load static %}
+
+{% block main_content %}
+
+<!-- Card structure show detail - start -->
+
+<div class="container">
+
+    <div class="card">
+
+        <h1>Member detail</h1>
+        <br>
+        <p>
+           <b>member_name :</b> {{data.member_name}}
+        </p>
+        <p>
+            <b>reference_id :</b> {{data.memberId}}
+        </p>
+        <p>
+            <b>contact :</b> {{data.contact}}
+        </p>
+        <br>
+        <h4>Books Rental details :</h4>
+        <p>--------------------------------------------------------------------</p>
+        {% if book_data == "No books rental." %}
+            <p>No books rental.</p>
+        {% else %}
+            {% for data in book_data %}
+            <p>
+                <b>Rentel book title :</b>
+                {{data.issue_BookTitle}}
+            </p>
+            <p>     
+                <b>Book issue date : </b>
+                {{data.issue_date}} <br><br>
+                <b>Book return date : </b>
+                {{data.return_date}}
+            </p>
+            <p>--------------------------------------------------------------------</p>
+            <br>
+            {% endfor %}
+        {% endif %}
+        
+        <button class="search-btn" onclick="del()">
+            delete
+        </button>
+
+        <button class="search-btn">Book Return</button>
+        <br><br>
+        <a href="/library/members" style="color: blue;">Go Back</a>
+        
+    </div>
+</div>
+
+<script>
+    function del() {
+      let s = confirm("Are you sure to delete this member data.");
+      if (s) {
+        window.location.href = "{% url 'delete_member' data.memberId %}"
+      } else {
+        null
+      }
+    }
+</script>
+    
+
+<!-- Card structure show detail - end -->
+
+{% endblock %}
