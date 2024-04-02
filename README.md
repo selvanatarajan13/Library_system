@@ -40,7 +40,8 @@ This page provide the information about the member on the library.
 image - 6
 The page displays information related to book transactions in the library system. It includes details such as book titles, authors, borrower names, and issue dates. The system efficiently manages the circulation of books, making it easier for librarians and borrowers to keep records.
 
-![transaction](https://github.com/selvanatarajan13/Library_Management/assets/113310373/ea917166-a401-47e0-9eee-f5fb1bbb9ad8)
+![transactional page](https://github.com/selvanatarajan13/Library_system/assets/113310373/a196e772-8d6f-4d72-93a7-827ff1d342e8)
+
 
 image - 7
 Database
