@@ -17,6 +17,9 @@ This appears to be a book page or library catalog page. On this page, you can se
 
 ![Home](https://github.com/selvanatarajan13/Library_Management/assets/113310373/46688022-caa6-40fb-9ed0-01707534d544)
 
+![Home page2](https://github.com/selvanatarajan13/Library_system/assets/113310373/7de93af7-845d-47dc-a181-88a60c90a45e)
+
+
 image - 2
 On this page, you can search for books and view their details.
 
